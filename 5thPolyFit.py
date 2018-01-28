@@ -7,20 +7,29 @@ Created on Sat Jan 27 20:43:23 2018
 
 #script designed to curve fit given a certain number of points 
 #using scipy.optimize.curve_fit
+#data taken from: https://www.iasj.net/iasj?func=fulltext&aId=90945
+#page 12/219, Figure top right (hip angle for regular subject)
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
-
-#order 5 polynomial for curve fitting
-def fit_fun(x,a,b,c,d,e,f):
-    return (a*(x^5))+(b+(x^4))+(c*(x^3))+(d*(x^2))+(e*(x))+f
-
+    
 #array containing x and y coordinates to use for fitting
-x = []
-y = []
+xdata = np.array([0,8,29,52,75,94,100])
+ydata = np.array([15,31,6,19,12,28,25])
 
-coord = curve_fit(fit_fun,x,y)
+#7th degree polynomial fitting
+fitted = np.polyfit(xdata,ydata,7)
+p = np.poly1d(fitted)
 
-print(coord)
 
+#setting the step precision for graphing
+xp = np.linspace(0,100,1000)
+
+#plotting
+#all given data points are points on graph
+#interpolated fit is straight line
+#higher degree polynomial is dotted line (usually wrong shape)
+plot = plt.plot(xdata,ydata,'.',xp,p(xp),'-')
+plt.xlim(0,100)
+plt.ylim(0,35)
+plt.show()
