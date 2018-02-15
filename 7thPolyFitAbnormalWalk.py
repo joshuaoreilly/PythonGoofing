@@ -6,7 +6,7 @@ Created on Sat Jan 27 20:43:23 2018
 """
 
 #script designed to curve fit given a certain number of points 
-#using scipy.optimize.curve_fit
+#using np.polyfit
 #data taken from: https://www.iasj.net/iasj?func=fulltext&aId=90945
 #page 12/219, Figure top right (hip angle for regular subject)
 
