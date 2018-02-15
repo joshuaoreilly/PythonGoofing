@@ -13,6 +13,8 @@ Created on Thu Feb 15 19:00:54 2018
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
     
 # Array containing x and y coordinates to use for fitting
 xdata = np.array([0,18,23,30,40,50,66,82,90,100])
@@ -23,7 +25,6 @@ ydata = ydataPreScale*54.54545454545454
 # 7th degree polynomial fitting
 fitted = np.polyfit(xdata,ydata,5)
 p = np.poly1d(fitted)
-
 
 # Setting the step precision for graphing
 xp = np.linspace(0,100,1000)
@@ -42,14 +43,21 @@ while (x<=100):
 average = sum/100000
 print(average)
 
+
 # Plotting
 # All given data points are points on graph
 # Interpolated fit is straight line
 # Higher degree polynomial is dotted line (usually wrong shape)
-plot = plt.plot(xdata,ydata,'.',xp,p(xp),'-')
+plot = plt.plot(xdata,ydata,'.', xp,p(xp), '-')
 plt.xlim(0,100)
-plt.ylim(-40,40)
+plt.ylim(-30,40)
 plt.xlabel('% gait cycle')
 plt.ylabel('Nm torque')
 plt.title('Assisted torque over gait cycle (approximated)')
+plt.axhline(y=average, color='k', linestyle='--')
+plt.grid()
+# Add legend in corner for average
+red_patch = mpatches.Patch(color='k', linestyle='--', 
+                           label='Average torque = 13.4870733059')
+plt.legend(handles=[red_patch])
 plt.show()
