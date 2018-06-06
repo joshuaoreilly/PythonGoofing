@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 15 19:00:54 2018
+Created on Wed Feb 28 17:30:29 2018
 
 @author: oreil
 """
 
-# Script designed to curve fit given a certain number of points 
-# Using np.polyfit
-# Data taken from: Seo et al. - Fully Autonomous Hip Exoskeleton Saved Metabolic Cost of Walking (2016)
-# (on the drive under research - mechanical - biomechanical)
-# Data taken from pg. 4, assist torque pattern, level ground
+# Script designed to write torque data to csv file for simulations
 
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import csv
 
     
 # Array containing x and y coordinates to use for fitting
@@ -62,5 +59,10 @@ red_patch = mpatches.Patch(color='k', linestyle='--',
 plt.legend(handles=[red_patch])
 plt.show()
 
+# Write to csv
 
-# Save the data to a CSV file
+with open("simulationData.csv", "w",newline='') as csvfile:
+    writer = csv.writer(csvfile,delimiter=",")
+    for val in xp:
+        writer.writerow([str(val/100), str((p(val))/30)])
+    csvfile.close()
